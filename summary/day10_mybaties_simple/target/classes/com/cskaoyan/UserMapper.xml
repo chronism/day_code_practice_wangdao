@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+    <delete id="delUserById" >
+        delete from user_m where id= #{id}
+    </delete>
+
+    <insert id="insertUser">
+        insert into student(id,username,password) values (#{id},#{username},#{password})
+    </insert>
+
+    <select id="selectUserByNameAndPassword" resultType="domain.User">
+        select id,username,password from student where username=#{username} and password=#{password}
+    </select>
+
+
+</mapper>

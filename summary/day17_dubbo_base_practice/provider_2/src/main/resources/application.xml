@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--直连的方式，不用注册中心-->
+    <!--配置一个服务的名字，用来计算服务之间的依赖关系-->
+    <dubbo:application name="dubbo-provider2"/>
+    <!--直连提供者，不需要注册中心版本-->
+    <!--<dubbo:service interface="com.cskaoyan.service.DubboDemoService" class="com.cskaoyan.service.impl.DubboDemoServiceImpl" registry="N/A"/>-->
+
+    <!--需要注册中心的版本-->
+    <dubbo:service interface="com.cskaoyan.service.DubboDemoService" class="com.cskaoyan.service.impl.DubboDemoServiceImpl" />
+    <dubbo:registry address="zookeeper://localhost:2181"/>
+
+    <!--dubbo的端口号一定要配置，不配置不行的-->
+    <dubbo:protocol name="dubbo" port="20881"/>
+</beans>

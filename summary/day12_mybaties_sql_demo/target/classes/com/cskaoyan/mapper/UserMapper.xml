@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cskaoyan.mapper.UserMapper">
+    <!--where标签-->
+    <select id="selectUsernameById" resultType="java.lang.String">
+        select username from j18_user_t
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <sql id="baseColumn">
+        id
+        ,
+        username,
+        password,
+        age
+    </sql>
+
+    <!--if标签:test里使用我们输入映射可以使用的参数-->
+    <select id="selectUserByAgeCondition" resultType="com.cskaoyan.bean.User">
+        select
+        <include refid="baseColumn"/>
+        from j18_user_t
+
+        <where>
+            <if test="age gt 20 or age == 20">
+                age &gt;= 20
+            </if>
+            <if test="age lt 20">
+                age &lt; 20
+            </if>
+        </where>
+    </select>
+    <select id="selectUserByUsername" resultType="com.cskaoyan.bean.User">
+        select
+        <include refid="baseColumn"/>
+        from j18_user_t
+        <where>
+            <if test="username == 'caixukun'">
+                username = 'caixukun'
+            </if>
+            <if test="password.length gt 5">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+    <!--<if test="age gt 20 or age == 20">
+        age &gt;= 20
+    </if>
+    <if test="age lt 20">
+        age &lt; 20
+    </if>-->
+    <select id="selectUserByAgeChooseWhen" resultType="com.cskaoyan.bean.User">
+        select
+        <include refid="baseColumn"/>
+        from j18_user_t
+        <where>
+            <choose>
+                <when test="age gt 20 or age == 20">
+                    age &gt;= 20
+                </when>
+
+                <otherwise>
+                    age &lt; 20
+                </otherwise>
+            </choose>
+
+        </where>
+    </select>
+    <update id="updateUser">
+        update j18_user_t
+
+        <trim suffixOverrides="," prefix="set">
+            <if test="user.username != null">
+                username = #{user.username},
+            </if>
+            <if test="user.password != null">
+                password = #{user.password},
+            </if>
+            <if test="user.age != 0">
+                age = #{user.age}
+            </if>
+        </trim>
+
+        where id = #{user.id}
+    </update>
+    <sql id="whereIdCondition">
+        <where>
+            id = #{user.id}
+        </where>
+    </sql>
+    <update id="updateUserSet">
+        update j18_user_t
+
+        <set>
+            <if test="user.username != null">
+                username = #{user.username},
+            </if>
+            <if test="user.password != null">
+                password = #{user.password},
+            </if>
+            <if test="user.age != 0">
+                age = #{user.age}
+            </if>
+        </set>
+
+        <include refid="whereIdCondition"/>
+
+    </update>
+    <!--(1,2,3,4,5)-->
+    <!--(?,?,?,?,?)-->
+    <select id="selectUsersInArray" resultType="com.cskaoyan.bean.User">
+        select
+        <include refid="baseColumn"/>
+        from j18_user_t
+        <where>
+            id in
+            <foreach collection="array" item="idz" separator="," open="(" close=")">
+                #{idz}
+            </foreach>
+        </where>
+    </select>
+    <select id="selectUsersInList" resultType="com.cskaoyan.bean.User">
+        select
+        <include refid="baseColumn"/>
+        from j18_user_t
+        <where>
+            id in
+            <foreach collection="list" item="idz" separator="," open="(" close=")">
+                #{idz}
+            </foreach>
+        </where>
+    </select>
+    <select id="selectUsersInArrayAnnotation" resultType="com.cskaoyan.bean.User">
+        select
+        <include refid="baseColumn"/>
+        from j18_user_t
+        <where>
+            id in
+            <foreach collection="ids" item="idz" separator="," open="(" close=")">
+                #{idz}
+            </foreach>
+        </where>
+    </select>
+    <select id="selectUsersInListAnnotation" resultType="com.cskaoyan.bean.User">
+        select
+        <include refid="baseColumn"/>
+        from j18_user_t
+        <where>
+            id in
+            <foreach collection="ids" item="idz" separator="," open="(" close=")">
+                #{idz}
+            </foreach>
+        </where>
+    </select>
+    <insert id="insertUsers" useGeneratedKeys="true" keyProperty="users.id">
+        insert into j18_user_t (username,password,age) values
+        <foreach collection="users" item="user" separator=",">
+            (#{user.username},#{user.password},#{user.age})
+        </foreach>
+    </insert>
+    <!--keyproperty对应输入映射可以使用的值-->
+    <!--keycolumn对应selectKey中查询结果的列名-->
+    <!--order指相对于原先语句的执行顺序-->
+    <!--resultType 对应keyproperty的值类型-->
+    <!--<selectKey order="AFTER" resultType="int" keyProperty="user.id" keyColumn="id">
+        select LAST_INSERT_ID() as id
+    </selectKey>-->
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="user.id">
+        insert into j18_user_t (username, password, age)
+        values (#{user.username}, #{user.password}, #{user.age})
+    </insert>
+    <insert id="insertUserBefore">
+        <selectKey order="BEFORE" resultType="string" keyColumn="uuid" keyProperty="user.username">
+            select UUID() as uuid
+        </selectKey>
+        insert into j18_user_t (username,password,age) values (#{user.username},#{user.password},#{user.age})
+    </insert>
+
+
+    <!-- 多次查询 -->
+    <resultMap id="userMap2" type="com.cskaoyan.bean.User">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <association property="userDetail" column="id" select="com.cskaoyan.mapper.UserMapper.selectUserDetails"/>
+    </resultMap>
+
+    <select id="queryUserByIdOne2One" resultMap="userMap2">
+        select
+            id,
+            username,
+            password
+        from user_data
+        where id = #{id}
+    </select>
+
+    <select id="selectUserDetails" resultType="com.cskaoyan.bean.UserDetail">
+        select email,phone
+        from userdetail_one2one
+        where uid = #{id}
+    </select>
+
+
+    <!-- 一次查询 -->
+    <resultMap id="userMap3" type="com.cskaoyan.bean.User">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <association property="userDetail" javaType="com.cskaoyan.bean.UserDetail">
+            <result property="email" column="email"/>
+            <result property="phone" column="phone"/>
+        </association>
+    </resultMap>
+
+    <select id="queryUserByIdOne2OneLeft" resultMap="userMap3">
+        select
+            u.id,
+            u.username,
+            u.password,
+            ud.email,
+            ud.phone
+        from user_data u
+                 left join userdetail_one2one ud on u.id = ud.uid
+        where
+            u.id = #{id}
+    </select>
+
+
+    <resultMap id="userMap4" type="com.cskaoyan.bean.User">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <collection property="orderList" ofType="com.cskaoyan.bean.Order">
+            <result property="orderName" column="orderName"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryUsersByIdOne2Many" resultMap="userMap4">
+        select
+            u.id,
+            u.username,
+            u.password,
+            od.orderName
+        from user_data u
+                 left join order_one2many od on u.id = od.uid
+        where
+            u.id = #{id}
+    </select>
+
+    <!-- 多对多 -->
+    <resultMap id="userMap5" type="com.cskaoyan.bean.Course">
+        <result column="id" property="id"/>
+        <result column="coursename" property="courseName"/>
+        <collection property="userList" ofType="com.cskaoyan.bean.User">
+            <result property="username" column="username"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="queryUserByCouserIdMany2Many" resultMap="userMap5">
+        select
+            cm.course as coursename,
+            ud.username
+        from course_many2many cm
+                 left join relation_many2many rd on cm.id = rd.cid
+                 left join user_data ud on ud.id = rd.uid
+    </select>
+    <resultMap id="userMap6" type="com.cskaoyan.bean.User">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <collection property="courseList" ofType="com.cskaoyan.bean.Course">
+            <result property="courseName" column="coursename"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="queryCoursesByUserIdMany2Many" resultMap="userMap6">
+        select
+            cm.course as coursename,
+            ud.username
+        from user_data ud
+                 left join relation_many2many rd on ud.id = rd.cid
+                 left join course_many2many cm on cm.id = rd.uid
+        where
+            ud.id = #{id}
+    </select>
+
+
+    <resultMap id="userMap7" type="com.cskaoyan.bean.User">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="money" column="money"/>
+    </resultMap>
+
+    <select id="findUserByParams" resultMap="userMap7">
+        select
+        username,password,money,id
+        from user_data
+        <where>
+            <if test="username != null and username != ''">
+                username=#{username}
+            </if>
+            <if test="id != null">
+                and id=#{id}
+            </if>
+            <if test="password != null and password != ''">
+                and password=#{password}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="findUserListByParams" resultType="com.cskaoyan.bean.User">
+        select
+        username,password,money,id
+        from user_data
+        <where>
+            <if test="username != null and username != ''">
+                username=#{username}
+            </if>
+            <if test="id != null">
+                and id=#{id}
+            </if>
+            <if test="password != null and password != ''">
+                and password=#{password}
+            </if>
+        </where>
+    </select>
+    <insert id="insertUserBatch">
+        insert into user_data(username,password,money)
+        values
+        <foreach collection="userList" item="user" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="user.username != null and user.username != ''">
+                    #{user.username},
+                </if>
+                <if test="user.password!=null and user.password != ''">
+                    #{user.password},
+                </if>
+                <if test="user.money!=null and user.money != ''">
+                    #{user.money}
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <insert id="insertTestSelectKey">
+        <!--<selectKey order="BEFORE" keyColumn="id" keyProperty="user.username" resultType="string">
+            select UUID() as id
+        </selectKey>-->
+        insert into user_data(username,password) values (#{user.username},#{user.password})
+
+        <selectKey order="AFTER" keyColumn="idz" keyProperty="user.id" resultType="int">
+            select last_insert_id() as idz
+        </selectKey>
+
+    </insert>
+
+
+    <insert id="insertTestUseGenerateKey" useGeneratedKeys="true" keyProperty="user.id">
+        insert into user_data(username,password) values (#{user.username},#{user.password})
+    </insert>
+    <!--keyProperty="user.id" keyColumn="idz" resultType="int"-->
+</mapper>

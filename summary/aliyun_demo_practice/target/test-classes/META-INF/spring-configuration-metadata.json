@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "aliyun",
+      "type": "com.cskaoyan.config.AliyunComponent",
+      "sourceType": "com.cskaoyan.config.AliyunComponent"
+    }
+  ],
+  "properties": [
+    {
+      "name": "aliyun.access-key-id",
+      "type": "java.lang.String",
+      "sourceType": "com.cskaoyan.config.AliyunComponent"
+    },
+    {
+      "name": "aliyun.access-key-secret",
+      "type": "java.lang.String",
+      "sourceType": "com.cskaoyan.config.AliyunComponent"
+    },
+    {
+      "name": "aliyun.oss",
+      "type": "com.cskaoyan.config.Oss",
+      "sourceType": "com.cskaoyan.config.AliyunComponent"
+    },
+    {
+      "name": "aliyun.sms",
+      "type": "com.cskaoyan.config.Sms",
+      "sourceType": "com.cskaoyan.config.AliyunComponent"
+    }
+  ],
+  "hints": []
+}

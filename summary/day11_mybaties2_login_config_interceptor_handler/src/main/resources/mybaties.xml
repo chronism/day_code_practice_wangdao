@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="db.properties"/>
+
+    <typeAliases>
+        <!--这个是批处理，路径下面就是类了，使用的时候可以用小写，不用全类名,针对的是JavaBean-->
+        <package name="com.cskaoyan.domain"/>
+
+        <!--这个是单个别名处理-->
+        <!--<typeAlias type="com.cskaoyan.domain" alias="user"/>-->
+    </typeAliases>
+
+    <!-- 转换器器必须放在environment前面 -->
+    <typeHandlers>
+        <typeHandler handler="com.cskaoyan.typeHandler.String2StringsTypeHandler"/>
+        <!--<typeHandler handler="com.cskaoyan.typeHandler.String2UserTypeHandler"/>-->
+    </typeHandlers>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driverClass}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!--<mapper resource="com/cskaoyan/UserMapper.xml"/>-->
+        <package name="com.cskaoyan.mapper"/>
+    </mappers>
+
+
+</configuration>

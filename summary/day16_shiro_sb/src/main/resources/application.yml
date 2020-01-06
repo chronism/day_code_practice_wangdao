@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    #    阿里巴巴支持
+    druid:
+      stat-view-servlet:
+        login-username: yuanchuan
+        login-password: 123456

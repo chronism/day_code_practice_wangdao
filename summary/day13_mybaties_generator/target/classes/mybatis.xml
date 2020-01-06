@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--properties 全局变量-->
+    <properties resource="db.properties">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8"/>
+    </properties>
+    <typeAliases>
+        <!--单个类型配置别名-->
+        <!--<typeAlias type="com.cskaoyan.bean.Account" alias="accountz"/>-->
+        <!--包目录下的全部类均配置别名，使用类名纯小写的形式即可-->
+        <package name="com.cskaoyan.domain"/>
+    </typeAliases>
+    <!--typeHandler-->
+    <!--<typeHandlers>
+        <typeHandler handler="com.cskaoyan.typehandler.String2StringArrayTypeHandler"/>
+        <typeHandler handler="com.cskaoyan.typehandler.String2UserDetailTypeHandler"/>
+    </typeHandlers>-->
+
+    <!--丐版 青春版-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <!--resource对应classpath下的文件路径-->
+        <!--<mapper resource="com/cskaoyan/AccountMapper.xml"/>-->
+        <!--url配置文件的真实路径-->
+        <!--<mapper url="file:///D:\Coding Workspace\j18_workspace\codes\mybatis2\demo1_config\src\main\resources\com\cskaoyan\AccountMapper.xml"/>-->
+        <!--class配置的是接口：接口是和映射文件一一对应的-->
+        <!--对应关系：
+        1、接口要和映射文件放在同一级目录
+        2、接口要和映射文件同名
+        3、映射文件的命名空间等于接口的全类名
+        4、接口中的方法名 和映射文件中的标签的id一致； 方法一定要有标签与之对应，标签不一定需要方法与之对应
+        -->
+        <!--<mapper class="com.cskaoyan.mapper.AccountMapper"/>-->
+        <!--package:批量配置class-->
+        <package name="com.cskaoyan.mapper"/>
+    </mappers>
+</configuration>

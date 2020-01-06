@@ -1,0 +1,41 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+spring:
+  profiles:
+    active: db
+
+
+---
+spring:
+  profiles: db
+
+user:
+  mapper[1]: 44
+  mapper[2]: 2
+  mapper[0]: 3
+  mapper.str1: srt1
+  mapper.str2: str2
+  mapper1: {11: 11,22: 22,33: 33}
+  stringList: list1,list2,list3
+  stringList1[1]: list4
+  stringList1[2]: list5
+  stringList1[0]: list6
+  stringList3:
+    - value1
+    - value2
+
+---
+spring:
+  profiles: db1
+
+user:
+  mapper[1]: 44
+  mapper[2]: 2
+  mapper[0]: 3
+  stringList: list1,list2,list3
+
+  stringList3:
+    - value1111111111111111
+    - value222222222222222

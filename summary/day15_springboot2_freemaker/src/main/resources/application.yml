@@ -1,0 +1,25 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+spring:
+#  freemarker:
+#    suffix: .ftl
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+  resources:
+    static-locations: classpath:/static/
+
+logging:
+  path: springio/loggg # 不加/,根路径为.idea所在路径 ,加/,就到盘符了，与下面的file不能同时使用，且这个已经被废弃了
+#  file: yc.log #这个级别比path高，且可以指定路径，默认的根路径为 .idea所在路径
+  level:
+    com:
+      cskaoyan:
+        mapper: debug
+        controller: info
+

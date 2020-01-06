@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: dubbo-provider
+  dubbo:
+    server: true
+    registry: zookeeper://localhost:2181
+#    registry: N/A
+    protocol:
+      name: dubbo
+      port: 20880

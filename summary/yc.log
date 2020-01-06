@@ -1,0 +1,20 @@
+2019-12-26 09:16:26.268  INFO 10856 --- [main] c.c.Day15Springboot2FreemakerApplication : Starting Day15Springboot2FreemakerApplication on 神龙号 with PID 10856 (E:\code\java\summary\day15_springboot2_freemaker\target\classes started by admin in E:\code\java\summary)
+2019-12-26 09:16:26.275  INFO 10856 --- [main] c.c.Day15Springboot2FreemakerApplication : No active profile set, falling back to default profiles: default
+2019-12-26 09:16:30.346  INFO 10856 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 80 (http)
+2019-12-26 09:16:30.368  INFO 10856 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-26 09:16:30.369  INFO 10856 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
+2019-12-26 09:16:30.559  INFO 10856 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-26 09:16:30.559  INFO 10856 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4109 ms
+2019-12-26 09:16:31.510  INFO 10856 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-26 09:16:32.052  INFO 10856 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 80 (http) with context path ''
+2019-12-26 09:16:32.060  INFO 10856 --- [main] c.c.Day15Springboot2FreemakerApplication : Started Day15Springboot2FreemakerApplication in 7.521 seconds (JVM running for 16.765)
+2019-12-26 09:22:39.789  INFO 12808 --- [main] c.c.Day15Springboot2FreemakerApplication : Starting Day15Springboot2FreemakerApplication on 神龙号 with PID 12808 (E:\code\java\summary\day15_springboot2_freemaker\target\classes started by admin in E:\code\java\summary)
+2019-12-26 09:22:39.796  INFO 12808 --- [main] c.c.Day15Springboot2FreemakerApplication : No active profile set, falling back to default profiles: default
+2019-12-26 09:22:42.462  INFO 12808 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 80 (http)
+2019-12-26 09:22:42.489  INFO 12808 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-26 09:22:42.490  INFO 12808 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
+2019-12-26 09:22:42.724  INFO 12808 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-26 09:22:42.725  INFO 12808 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2769 ms
+2019-12-26 09:22:43.742  INFO 12808 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-26 09:22:44.353  INFO 12808 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 80 (http) with context path ''
+2019-12-26 09:22:44.361  INFO 12808 --- [main] c.c.Day15Springboot2FreemakerApplication : Started Day15Springboot2FreemakerApplication in 5.706 seconds (JVM running for 13.53)

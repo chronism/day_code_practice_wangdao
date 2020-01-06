@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cskaoyan.mapper.UserMapper">
+    <select id="queryUser" resultType="com.cskaoyan.domain.User">
+        select id as uid,username,password from test_user where username=#{username} and password=#{password}
+    </select>
+    <insert id="insertUser">
+        insert into test_user(username,password) values (#{username} ,#{password})
+    </insert>
+    <delete id="deleteUser">
+        delete from test_user where username=#{username}
+    </delete>
+    <update id="updateUser">
+        update table test_user set id=#{param2.id} ,username=#{param2.username},password=#{param2.password} where username=#{param1}
+    </update>
+</mapper>
